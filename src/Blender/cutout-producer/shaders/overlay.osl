@@ -1,0 +1,14 @@
+// this shader is used to render objects as overlay on top of the scene in Blender
+
+shader overlay(
+    color InColor = holdout(),
+    float Strength = 1.0,
+    output closure color OutColor = holdout()
+)
+{
+    closure color in_light = transparent();
+    // composite as overlay
+    OutColor = in_light + InColor - in_light * InColor;
+    // apply strength
+    OutColor = mix(in_light, OutColor, Strength);
+}
